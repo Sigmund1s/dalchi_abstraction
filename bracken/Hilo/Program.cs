@@ -9,8 +9,8 @@ class Cards{
     }
 }
 //the text class runs through the text and responses and calls to the score class to add or subtract from the score.
-class text{
-    public void Text(int previous_card, int ran_num){
+class Text{
+    public void text(int previous_card, int ran_num){
             int total_score = 0;
             Console.Write($"The card is: {previous_card}\nHigher or lower? [h/l] ");
             string? guess = Console.ReadLine();
@@ -45,10 +45,10 @@ class GameRunner{
     public static void Main(string[] args){
         int previous_card = Cards.cards(0);
         int next_card = Cards.cards(previous_card);
-        text t = new text();
+        Text t = new Text();
         string? yes_no = "y";
         while (Equals(yes_no, "y")){
-            t.Text(previous_card, next_card);
+            t.text(previous_card, next_card);
             Console.Write("Play again? [y/n] ");
             yes_no = Console.ReadLine();
             if (GameOver.IsGameOver()) break;
