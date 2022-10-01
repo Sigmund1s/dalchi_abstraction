@@ -47,15 +47,15 @@ class Cards
 
     // generate the range of cards 1-13 
     // I need to know how to make 4 -> 1's, 4 -> 3's etc.
-    static List<string> GetCards()
+    static List<int> GetCards()
     {
-        List<string> cards = new List<string>();
+        List<int> cards = new List<int>();
         for (int i = 1; i <= 13; i++)
             {
-                for (int j = 1; j <= 4; j++)
-                {
+                //for (int j = 1; j <= 4; j++)
+                //{
                     
-                }
+                //}
                 cards.Add(i.ToString());
             }
         return cards;
