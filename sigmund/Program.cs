@@ -91,16 +91,21 @@ class Cards // This is the class
     }
 
     // I'm going to call this twice
-    public static int RandomCard(List<int> getCards)
+    public static int RandomCard(List<int> getCards, int previousCard)
     {
+        int card = previousCard;
         Random random = new Random(); // new = makes a brand new object
-        int index = random.Next(getCards.Count()-1); // This gets the range of "getCards", -1 will return the actual size.
-        int card = getCards[index];
+        while (card == previousCard)
+        {
+            int index = random.Next(getCards.Count()); // This gets the range of "getCards", -1 will return the actual size.
+            card = getCards[index];
+        }
 
         return card;
     }
 
-
+    //This didnt work due to having the same seed. Just use RandomCard
+    /***
     // I want to call RandomCard method inside these two below.
     public static int CurrentCard(List<int> getCards)
     {
@@ -116,21 +121,55 @@ class Cards // This is the class
 
         return next;
     }
+    ***/
 
     // When comparing CurrentCard and NextCard -> They are integers
     //      - However the ChoiceHL is a string
     //      - MY QUESTION: would I make this "public static string" or "public static int"?
     //      - I'm gonna need methods from other classes.
     //          - Classes to use: Player.ChoiceHL, Cards.CurrentCard, Cards.NextCard
-    /***
-    public static string CompareCards()
+    //***
+    public static int CompareCards(int currentCard, int nextCard, string choice)
     {
 
+        int points = 300;
+        int goodPoints = 100;
+        int badPoints = 75;
+
+        
+        if (currentCard > nextCard)
+        {
+            if (Equals(choice, "H"))
+            {
+                Console.WriteLine("Your Card is HIGHER");
+                points -= badPoints;
+            }
+            else if (Equals(choice, "L"))
+            {
+                Console.WriteLine("Your Card is LOWER");
+                points += goodPoints;
+            }
+        }
 
 
-        return comparison;
+        else if (currentCard < nextCard)
+        {
+            if (Equals(choice, "H"))
+            {
+                Console.WriteLine("Your Card is cool");
+                points += goodPoints;
+            }
+            else if (Equals(choice, "L"))
+            {
+                Console.WriteLine("Your Card is bad");
+                points -= badPoints;
+            }
+        }
+
+
+        return points;
     }
-    ***/
+    //***/
 
 }
 
@@ -145,9 +184,11 @@ class GameRunner
         - Player chooses option
 
         ***/
-        
+        int currentCard = Cards.RandomCard(Cards.GetCards(), 0);
+        int nextCard = Cards.RandomCard(Cards.GetCards(), currentCard);
+
         // This prints out the random card.
-        Console.WriteLine($"The Card is: {Cards.CurrentCard(Cards.GetCards())}"); // Write the line; Call the class and the method inside; "Cards.GetCards()" are the neede parameters.
+        Console.WriteLine($"The Card is: {currentCard}"); // Write the line; Call the class and the method inside; "Cards.GetCards()" are the neede parameters.
         
         // Prompts and asks user for H/L
         Console.Write("Higher or Lower? [H/L] ");
@@ -155,8 +196,10 @@ class GameRunner
         Console.WriteLine($"Response: {choice}");
 
         // Shows next number; deducts or adds points based on choice
-        Console.WriteLine($"Next Card: {Cards.NextCard(Cards.GetCards())}");
+        Console.WriteLine($"Next Card: {nextCard}");
         // Here i'll call Player.CompareCards
+        int compare = Cards.CompareCards(currentCard, nextCard, choice);
+        Console.WriteLine($"{compare}");
    }
 }
 
