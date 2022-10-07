@@ -1,7 +1,7 @@
 # HILO Project
 CSE210: Bracken Sant; bracken576@outlook.com or bsant576@byui.edu
 
-Required software: VS Code and .NET Framework (latest version is 4.8).
+Required software: VS Code (https://code.visualstudio.com/download) and .NET Framework (https://dotnet.microsoft.com/en-us/download/dotnet-framework).
 
 Description: This program utilizes classes to run a game called HILO. It is a guessing game where you guess if the next card is higher or lower than the previous card. 
 
